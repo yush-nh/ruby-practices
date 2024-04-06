@@ -30,4 +30,10 @@ opt.parse!(ARGV)
 year = options[:year] || Date.today.year
 month = options[:month] || Date.today.month
 
+# 月のバリデーション
+if month > 12 || month < 1
+  puts "月は1~12の範囲で指定してください"
+  exit
+end
+
 display_calendar(month, year)
