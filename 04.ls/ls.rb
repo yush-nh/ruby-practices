@@ -17,7 +17,6 @@ def format_filename(filename, max_filename_length)
   filename.to_s + "#{' ' * (max_filename_length - filename.length)}  "
 end
 
-# lsの表示
 def display_ls(files, cols, rows, max_filename_len)
   rows.times do |i|
     tmp = 0
