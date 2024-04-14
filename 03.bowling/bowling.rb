@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-require 'debug'
 
 obtained_score = ARGV[0]
 scores = obtained_score.split(',')
@@ -16,7 +15,6 @@ scores.each do |score|
 end
 
 frames = shots.each_slice(2).to_a
-frames << [0, 0] if frames.size == 10
 
 point = 0
 frames.each_with_index do |current_frame, i|
