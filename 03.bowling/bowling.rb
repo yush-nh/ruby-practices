@@ -25,30 +25,19 @@ frames.each_with_index do |current_frame, i|
   strike = current_frame[0] == 10
   spare = current_frame.sum == 10
 
-  if i < 9
-    point +=
-      if strike
-        if next_frame[0] == 10
-          current_frame[0] + next_frame[0] + after_next_frame[0]
-        else
-          current_frame[0] + next_frame.sum
-        end
-      elsif spare
-        current_frame.sum + next_frame[0]
+  point +=
+    if strike
+      if next_frame[0] == 10
+        current_frame[0] + next_frame[0] + after_next_frame[0]
       else
-        current_frame.sum
+        current_frame[0] + next_frame.sum
       end
-  else
-    point +=
-      if strike && next_frame[0] == 10
-        current_frame.sum + next_frame.sum + after_next_frame.sum
-      elsif spare
-        10 + next_frame.sum
-      else
-        current_frame.sum
-      end
-    break
-  end
+    elsif spare
+      current_frame.sum + next_frame[0]
+    else
+      current_frame.sum
+    end
+  break if i == 9
 end
 
 puts point
