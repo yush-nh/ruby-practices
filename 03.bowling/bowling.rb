@@ -18,26 +18,24 @@ end
 
 frames = shots.each_slice(2).to_a
 
-point = 0
-frames.each_with_index do |current_frame, i|
+point = 0.upto(9).sum do |i|
+  current_frame = frames[i]
   next_frame = frames[i + 1]
   after_next_frame = frames[i + 2]
   strike = current_frame[0] == 10
-  spare = current_frame.sum == 10
+  spare = !strike && current_frame.sum == 10
 
-  point +=
-    if strike
-      if next_frame[0] == 10
-        current_frame[0] + next_frame[0] + after_next_frame[0]
-      else
-        current_frame[0] + next_frame.sum
-      end
-    elsif spare
-      current_frame.sum + next_frame[0]
+  if strike
+    if next_frame[0] == 10
+      20 + after_next_frame[0]
     else
-      current_frame.sum
+      10 + next_frame.sum
     end
-  break if i == 9
+  elsif spare
+    10 + next_frame[0]
+  else
+    current_frame.sum
+  end
 end
 
 puts point
