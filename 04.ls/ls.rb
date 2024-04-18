@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'debug'
-
 files = Dir.glob('*').sort
 
 def format_filename(filename, max_filename_len)
