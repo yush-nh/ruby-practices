@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-files = Dir.glob('*').sort
+require 'optparse'
 
-def format_filename(filename, max_filename_len)
-  filename.ljust(max_filename_len + 2)
+def format_filename(filename, max_width)
+  filename.ljust(max_width + 2)
 end
 
 def sort_files(files, cols)
@@ -14,14 +14,27 @@ def sort_files(files, cols)
   sliced_files.map { |arr| arr + [nil] * (rows - arr.size) }.transpose
 end
 
-sorted_files = sort_files(files, 3)
-max_filename_len = files.max_by(&:length).length
+def ls(options)
+  files = Dir.glob('*').sort
+  files.reverse! if options[:reverse]
+  sorted_files = sort_files(files, 3)
+  max_width = files.max_by(&:length).length
 
-sorted_files.each do |rows|
-  rows.each do |row|
-    next if row.nil?
+  sorted_files.each do |rows|
+    rows.each do |row|
+      next if row.nil?
 
-    print format_filename(row, max_filename_len)
+      print format_filename(row, max_width)
+    end
+    print "\n"
   end
-  print "\n"
 end
+
+# options settings
+options = {}
+
+opt = OptionParser.new
+opt.on('-r') { |r| options[:reverse] = r }
+opt.parse!(ARGV)
+
+ls(options)
