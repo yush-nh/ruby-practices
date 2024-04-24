@@ -15,8 +15,13 @@ def sort_files(files, cols)
 end
 
 def ls(options)
-  files = Dir.entries('.').sort
-  files.reject! { |f| f.start_with?('.') } unless options[:all]
+  files =
+    if options[:all]
+      Dir.glob('*', File::FNM_DOTMATCH)
+    else
+      Dir.glob('*')
+    end
+
   sorted_files = sort_files(files, 3)
   max_filename_len = files.max_by(&:length).length
 
