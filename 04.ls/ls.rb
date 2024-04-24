@@ -3,8 +3,8 @@
 
 require 'optparse'
 
-def format_filename(filename, max_filename_len)
-  filename.ljust(max_filename_len + 2)
+def format_filename(filename, max_width)
+  filename.ljust(max_width + 2)
 end
 
 def sort_files(files, cols)
@@ -23,13 +23,13 @@ def ls(options)
     end
 
   sorted_files = sort_files(files, 3)
-  max_filename_len = files.max_by(&:length).length
+  max_width = files.max_by(&:length).length
 
   sorted_files.each do |rows|
     rows.each do |row|
       next if row.nil?
 
-      print format_filename(row, max_filename_len)
+      print format_filename(row, max_width)
     end
     print "\n"
   end
