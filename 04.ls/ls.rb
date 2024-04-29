@@ -15,8 +15,8 @@ def sort_files(files, cols)
 end
 
 def ls(options)
-  files = Dir.glob('*').sort
-  files.reverse! if options[:reverse]
+  files = Dir.glob('*', options[:all] ? File::FNM_DOTMATCH : 0)
+
   sorted_files = sort_files(files, 3)
   max_width = files.max_by(&:length).length
 
