@@ -34,7 +34,7 @@ end
 options = {}
 
 opt = OptionParser.new
-opt.on('-a', '--all') { |a| options[:all] = a }
+opt.on('-r') { |r| options[:reverse] = r }
 opt.parse!(ARGV)
 
 ls(options)
